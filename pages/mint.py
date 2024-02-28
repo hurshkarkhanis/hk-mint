@@ -86,7 +86,6 @@ st.subheader("Ask PocketBook:")
 import os
 from dotenv import load_dotenv, find_dotenv
 
-st.write(load_dotenv(find_dotenv()))
 
 my_key = os.getenv('OPEN_AI_API_KEY')
 
@@ -94,19 +93,22 @@ my_key = os.getenv('OPEN_AI_API_KEY')
 from langchain.chat_models import ChatOpenAI
 from langchain_experimental.agents import create_pandas_dataframe_agent
 
+question = st.text_input('Ask PocketBook')
 
 
-chat = ChatOpenAI(model_name='gpt-3.5-turbo', 
+
+chat = ChatOpenAI(model_name='gpt-4', 
                   temperature=0, 
-                  openai_api_key=my_key)
+                  openai_api_key=my_key
+                  )
 
 
 agent = create_pandas_dataframe_agent(chat, filtered_df, verbose=True)
 
 
-st.write(agent.run("What is the median cost"))
+#st.write(agent.run(question))
 
 
 
-with st.expander("See Raw Data"):
+with st.expander("See Data"):
     st.write(filtered_df)
