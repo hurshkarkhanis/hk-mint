@@ -64,24 +64,40 @@ else:
     st.error("End date must be after start date.")
 
 # Assuming you have already calculated the metrics
-number_of_transactions = len(filtered_df)
+transactions = len(filtered_df)
 total_spend = sum(filtered_df['PRICE'])
 median_spend = filtered_df['PRICE'].median()
+min_spend = min(filtered_df['PRICE'])
+max_spend = max(filtered_df['PRICE'])
+
+
 
 # Format the metrics as dollars
 total_spend_formatted = "${:,.2f}".format(total_spend)
 median_spend_formatted = "${:,.2f}".format(median_spend)
+min_spend_formatted = "${:,.2f}".format(min_spend)
+max_spend_formatted = "${:,.2f}".format(max_spend)
 
 # Display metrics side by side
-col1, col2, col3 = st.columns(3)
+col1, col2, col3, col4 = st.columns(4)
+
 
 with col1:
-    st.metric("Transactions", number_of_transactions)
+    st.metric("Min Spend", min_spend_formatted)
 
 with col2:
-    st.metric("Total Spend", total_spend_formatted)
-
-with col3:
     st.metric("Median Spend", median_spend_formatted)
 
-st.write(filtered_df)
+with col3:
+    st.metric("Max Spend", max_spend_formatted)
+
+with col4:
+    st.metric("Total Spend", total_spend_formatted)
+
+
+st.subheader("Spending Distribution")
+category_spend = filtered_df.groupby('CATEGORY')['PRICE'].sum()
+st.bar_chart(category_spend)
+
+with st.expander("See Raw Data"):
+    st.write(filtered_df)
