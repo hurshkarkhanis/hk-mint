@@ -1,12 +1,9 @@
 import streamlit as st
 import pandas as pd
 from streamlit_gsheets import GSheetsConnection
-
-
 from datetime import datetime
 
-
-st.title("📗 Mint")
+st.title("📗 Pocketbook AI: Modern Personal Finance")
 
 url = "https://docs.google.com/spreadsheets/d/1n-hcvcfR4yMxqcolyOq2rBauGH1nFtCkWYYZgUgyEDs/edit?usp=sharing"
 
@@ -14,12 +11,9 @@ conn = st.connection("gsheets", type=GSheetsConnection)
 
 # Read data from Google Sheets
 google_data = conn.read(spreadsheet=url, usecols=[0, 1, 2, 3, 4, 5])
-
-
 pandas_data = pd.DataFrame(google_data)
 
 pandas_data['DATE'] = pd.to_datetime(pandas_data['DATE']).dt.date
-
 
 col1, col2 = st.columns(2)
 
@@ -41,9 +35,6 @@ if not categories:
 else:
     subheader_text = " + ".join(categories)
     st.subheader("🗂 Categories: " + subheader_text)
-
-
-
 
 
 # Convert date inputs to datetime objects
@@ -70,8 +61,6 @@ median_spend = filtered_df['PRICE'].median()
 min_spend = min(filtered_df['PRICE'])
 max_spend = max(filtered_df['PRICE'])
 
-
-
 # Format the metrics as dollars
 total_spend_formatted = "${:,.2f}".format(total_spend)
 median_spend_formatted = "${:,.2f}".format(median_spend)
@@ -79,25 +68,45 @@ min_spend_formatted = "${:,.2f}".format(min_spend)
 max_spend_formatted = "${:,.2f}".format(max_spend)
 
 # Display metrics side by side
-col1, col2, col3, col4 = st.columns(4)
+column_names = ["Min Spend", "Median Spend", "Max Spend", "Total Spend"]
+formatted_values = [min_spend_formatted, median_spend_formatted, max_spend_formatted, total_spend_formatted]
 
+for i, (col, value) in enumerate(zip(st.columns(4), formatted_values)):
+    with col:
+        st.metric(column_names[i], value)
 
-with col1:
-    st.metric("Min Spend", min_spend_formatted)
-
-with col2:
-    st.metric("Median Spend", median_spend_formatted)
-
-with col3:
-    st.metric("Max Spend", max_spend_formatted)
-
-with col4:
-    st.metric("Total Spend", total_spend_formatted)
-
-
+# Bar chart filtered by category
 st.subheader("Spending Distribution")
 category_spend = filtered_df.groupby('CATEGORY')['PRICE'].sum()
 st.bar_chart(category_spend)
+
+st.subheader("Ask PocketBook:")
+
+
+import os
+from dotenv import load_dotenv, find_dotenv
+
+st.write(load_dotenv(find_dotenv()))
+
+my_key = os.getenv('OPEN_AI_API_KEY')
+
+
+from langchain.chat_models import ChatOpenAI
+from langchain_experimental.agents import create_pandas_dataframe_agent
+
+
+
+chat = ChatOpenAI(model_name='gpt-3.5-turbo', 
+                  temperature=0, 
+                  openai_api_key=my_key)
+
+
+agent = create_pandas_dataframe_agent(chat, filtered_df, verbose=True)
+
+
+st.write(agent.run("What is the median cost"))
+
+
 
 with st.expander("See Raw Data"):
     st.write(filtered_df)
