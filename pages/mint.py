@@ -104,7 +104,7 @@ chat = ChatOpenAI(model_name='gpt-3.5-turbo',
                   temperature=0, 
                   openai_api_key=my_key
                   )
-agent = create_pandas_dataframe_agent(chat, filtered_df, verbose=True)
+agent = create_pandas_dataframe_agent(chat, pandas_data, verbose=True)
 
 # Function to interact with Langchain agent
 def interact_with_langchain(question):
@@ -135,4 +135,4 @@ if question_asked:
 
 # Expander to display raw data
 with st.expander("See Raw Data"):
-    st.write(filtered_df)
+    st.write(pandas_data)
