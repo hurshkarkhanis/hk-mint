@@ -5,6 +5,7 @@ import streamlit as st
 st.title("💬 Upload")
 
 st.header("📝 Query any CSV file using plain English")
+st.subheader("😎 No need for SQL or Python data skills")
 
 uploaded_file = st.file_uploader("", type=['csv'])
 

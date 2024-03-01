@@ -91,6 +91,7 @@ st.bar_chart(category_spend)
 
 # AI Interaction Section
 st.header("📝 Query financial data in plain English")
+st.subheader("😎 No need for SQL or Python data skills")
 
 
 # Importing necessary libraries

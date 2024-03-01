@@ -20,16 +20,16 @@ LOGGER = get_logger(__name__)
 
 def run():
     st.set_page_config(
-        page_title="Pocketbook",
+        page_title="Pocketbook AI",
         page_icon="📗",
     )
 
-    st.write("# 📗 Welcome to Pocketbook")
+    st.write("# 📗 Welcome to Pocketbook AI")
 
     st.markdown(
         """
         
-        **👨🏻‍💻 I built Pocketbook to give myself a personal finance tool** after
+        **👨🏻‍💻 I built Pocketbook AI to give myself a personal finance tool** after
         [Mint shut down](https://www.cnbc.com/select/mint-app-shutting-down-what-users-should-do/)
         at the end of 2023. 
 
