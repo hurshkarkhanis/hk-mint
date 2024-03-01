@@ -102,7 +102,7 @@ load_dotenv(find_dotenv())
 my_key = os.getenv('OPEN_AI_API_KEY')
 
 # Importing Langchain-related modules
-from langchain_community.chat_models import ChatOpenAI
+from langchain_openai import ChatOpenAI
 from langchain_experimental.agents import create_pandas_dataframe_agent
 
 # Creating Langchain agent with verbose output

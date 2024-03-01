@@ -33,7 +33,7 @@ def run():
         [Mint shut down](https://www.cnbc.com/select/mint-app-shutting-down-what-users-should-do/)
         at the end of 2023. 
 
-        🔄 **This tool combines** data visualization with AI to streamline analysis
+        🔄 **This tool uses** data visualization and AI to streamline analysis
 
         **👈 Check out the pages on the side bar**, or read about them below
         
@@ -43,7 +43,7 @@ def run():
     """
     )
 
-    with st.expander("🧰 Technical Specifics for Python Developers"):
+    with st.expander("🧰 Technical Specifics for Developers"):
         st.markdown(
         """
         I built the front end with [Streamlit](https://docs.streamlit.io/library/api-reference)
@@ -56,7 +56,7 @@ def run():
 
         I used Open AI's [GPT 3.5 Turbo](https://platform.openai.com/docs/models/gpt-3-5-turbo) model
 
-        I used [Langchain](https://www.langchain.com/), an LLM framework
+        I used [Langchain](https://www.langchain.com/), an LLM framework for chat functionality
 
         [🔗LINK TO GITHUB REPO](https://github.com/hurshkarkhanis/hk-mint)
 
