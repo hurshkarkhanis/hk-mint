@@ -1,9 +1,13 @@
 import pandas as pd
 import streamlit as st
 
-st.title("🦜 Langchain AI: Analyze CSV with natural language")
 
-uploaded_file = st.file_uploader("💬 Upload file for analysis", type=['csv'])
+st.title("💬 Upload")
+
+
+st.header("📝 Query any CSV file using plain English")
+
+uploaded_file = st.file_uploader("", type=['csv'])
 
 if uploaded_file is not None:
     try:
@@ -19,6 +23,7 @@ if uploaded_file is not None:
         # Loading API key from environment variables
         load_dotenv(find_dotenv())
         my_key = os.getenv('OPEN_AI_API_KEY')
+
 
         # Importing Langchain-related modules
         from langchain_community.chat_models import ChatOpenAI

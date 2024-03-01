@@ -20,8 +20,8 @@ LOGGER = get_logger(__name__)
 
 def run():
     st.set_page_config(
-        page_title="📗 Pocketbook",
-        page_icon="👋",
+        page_title="Pocketbook",
+        page_icon="📗",
     )
 
     st.write("# 📗 Welcome to Pocketbook")
@@ -33,18 +33,37 @@ def run():
         [Mint shut down](https://www.cnbc.com/select/mint-app-shutting-down-what-users-should-do/)
         at the end of 2023. 
 
-        ➕ **This tool combines** data visualization with AI to streamline analysis
+        🔄 **This tool combines** data visualization with AI to streamline analysis
 
         **👈 Check out the pages on the side bar**, or read about them below
         
         **📊 Analyze** allows me to connect to, filter, visualize, and chat wtih my spending data.
 
-        **💬 Upload** allows me to upload any CSV file and use natural language to query it
-        
-        
-        
+        **💬 Upload** allows me to upload any CSV file and use natural language to query it    
     """
     )
+
+    with st.expander("🧰 Technical Specifics for Python Developers"):
+        st.markdown(
+        """
+        I built the front end with [Streamlit](https://docs.streamlit.io/library/api-reference)
+
+        Most of the structured data is in [Pandas DataFrames](https://pandas.pydata.org/)
+
+        I used [dotenv](https://www.npmjs.com/package/dotenv) to access my Open AI API Key
+
+        I used [Streamlit-Gsheets](https://github.com/streamlit/gsheets-connection) to connect to Google Sheets data
+
+        I used Open AI's [GPT 3.5 Turbo](https://platform.openai.com/docs/models/gpt-3-5-turbo) model
+
+        I used [Langchain](https://www.langchain.com/), an LLM framework
+
+        [🔗LINK TO GITHUB REPO](https://github.com/hurshkarkhanis/hk-mint)
+
+        """
+    )
+
+    
 
 
 if __name__ == "__main__":

@@ -4,7 +4,10 @@ from streamlit_gsheets import GSheetsConnection
 from datetime import datetime
 
 # Setting up the Streamlit app title
-st.title("📗 Pocketbook AI: Modern Personal Finance")
+st.title("📊 Analyze")
+
+st.header("⚙️ Filter data and vizualize spending totals")
+
 
 # Google Sheets URL
 url = "https://docs.google.com/spreadsheets/d/1n-hcvcfR4yMxqcolyOq2rBauGH1nFtCkWYYZgUgyEDs/edit?usp=sharing"
@@ -87,7 +90,8 @@ st.bar_chart(category_spend)
 #####################################################################################
 
 # AI Interaction Section
-st.subheader("Ask PocketBook:")
+st.header("📝 Query financial data in plain English")
+
 
 # Importing necessary libraries
 import os
@@ -128,7 +132,7 @@ if st.button("Submit"):
 
 # Show the "Clear" button only if a question has been asked and answered
 if question_asked:
-    if st.button("Clear"):
+    if st.button("Clear Output"):
         user_question = ""
         langchain_response = ""
         st.text_input("Enter your question:", value="Enter your question:")
