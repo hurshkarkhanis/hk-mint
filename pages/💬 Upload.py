@@ -4,7 +4,6 @@ import streamlit as st
 
 st.title("💬 Upload")
 
-
 st.header("📝 Query any CSV file using plain English")
 
 uploaded_file = st.file_uploader("", type=['csv'])
@@ -41,6 +40,8 @@ if uploaded_file is not None:
         def interact_with_langchain(question):
             response = agent.run(question)
             return response
+        
+        
 
         # User input for the question
         user_question = st.text_input("Enter your question:", "...")
