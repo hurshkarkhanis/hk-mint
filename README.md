@@ -1,1 +1,1 @@
-![](my_video.mov)
+![this is my video](my_video.mov)
