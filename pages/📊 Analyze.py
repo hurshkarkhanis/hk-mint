@@ -119,7 +119,7 @@ def interact_with_langchain(question):
     return response
 
 # User input for the question
-user_question = st.text_input("Enter your question:", "...")
+user_question = st.text_input("Enter your question:")
 question_asked = False
 
 # Submit button to trigger Langchain interaction

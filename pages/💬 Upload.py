@@ -7,7 +7,7 @@ st.title("💬 Upload")
 st.header("📝 Query any CSV file using plain English")
 st.subheader("😎 No need for SQL or Python data skills")
 
-uploaded_file = st.file_uploader("", type=['csv'])
+uploaded_file = st.file_uploader("⬇️ Upload Here", type=['csv'])
 
 if uploaded_file is not None:
     try:
@@ -45,7 +45,7 @@ if uploaded_file is not None:
         
 
         # User input for the question
-        user_question = st.text_input("Enter your question:", "...")
+        user_question = st.text_input("Enter your question:")
 
         # Submit button to trigger Langchain interaction
         if st.button("Submit"):
