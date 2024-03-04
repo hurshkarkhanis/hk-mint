@@ -10,7 +10,7 @@ st.header("⚙️ Filter data and vizualize spending totals")
 
 
 # Google Sheets URL
-url = "https://docs.google.com/spreadsheets/d/1n-hcvcfR4yMxqcolyOq2rBauGH1nFtCkWYYZgUgyEDs/edit?usp=sharing"
+url = "https://docs.google.com/spreadsheets/d/10tjJA_KwXrJEageiI-7U_ykME2TwsBkFYSuOljWbEL0/edit?usp=sharing"
 
 # Establishing connection to Google Sheets
 conn = st.connection("gsheets", type=GSheetsConnection)
