@@ -39,7 +39,7 @@ if uploaded_file is not None:
 
         # Function to interact with Langchain agent
         def interact_with_langchain(question):
-            response = agent.run(question)
+            response = agent.invoke(question)
             return response
         
         

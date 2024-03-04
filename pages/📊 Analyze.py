@@ -115,7 +115,7 @@ agent = create_pandas_dataframe_agent(chat, pandas_data, verbose=True)
 
 # Function to interact with Langchain agent
 def interact_with_langchain(question):
-    response = agent.run(question)
+    response = agent.invoke(question)
     return response
 
 # User input for the question
