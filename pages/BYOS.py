@@ -4,12 +4,23 @@ from streamlit_gsheets import GSheetsConnection
 from datetime import datetime
 
 # Setting up the Streamlit app title
-st.title("📊 Analyze")
+st.title("BYOS")
 
 st.header("⚙️ Filter data and vizualize spending totals")
 
+with st.expander("⚠️ Guidelines for Google Sheet Link"):
+        st.markdown('''
+                    1. Must be sharing link (top right of Google Sheet)
+                    2. File MUST contain these columns at least (column names case sensitive)
+                        * DATE
+                        * CATEGORY
+                        * PRICE
+                    ''')
+
+user_input = st.text_input("Enter some text:")
+
 # Google Sheets URL
-url = "https://docs.google.com/spreadsheets/d/1n-hcvcfR4yMxqcolyOq2rBauGH1nFtCkWYYZgUgyEDs/edit?usp=sharing"
+url = user_input
 
 # Establishing connection to Google Sheets
 conn = st.connection("gsheets", type=GSheetsConnection)
