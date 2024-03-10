@@ -2,10 +2,9 @@ import pandas as pd
 import streamlit as st
 from datetime import datetime
 
-st.title("🙋🏻‍♂️ Bring Your Own Data (BYOD)")
+st.title("⬆️ Upload Your Data")
 
 st.subheader("😎 Upload your financial data for AI powered insights")
-
 
 
 with st.expander("⚠️ Guidelines for File Upload"):
@@ -18,8 +17,7 @@ with st.expander("⚠️ Guidelines for File Upload"):
                     ''')
         
 
-
-uploaded_file = st.file_uploader("⬇️ Upload Here", type=['csv'])
+uploaded_file = st.file_uploader("⬆️ Upload Here", type=['csv'])
 
 if uploaded_file is not None:
 
