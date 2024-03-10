@@ -42,7 +42,7 @@ def show_main_screen():
     conn = st.connection("gsheets", type=GSheetsConnection)
 
     # Read data from Google Sheets
-    google_data = conn.read(spreadsheet=url, usecols=[0, 1, 2, 3, 4, 5])
+    google_data = conn.read(spreadsheet=url, usecols=[0, 1, 2, 3, 4])
     pandas_data = pd.DataFrame(google_data)
 
     # Convert 'DATE' column to datetime objects

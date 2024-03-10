@@ -17,10 +17,12 @@ st.subheader("😎 Link your financial data for AI-powered insights")
 with st.expander("⚠️ Guidelines for Google Sheet Link"):
     st.markdown('''
                 1. Must be sharing link (top right of Google Sheet)
-                2. File MUST contain these columns at least (column names case sensitive)
+                2. File MUST contain exactly these columns (column names case sensitive)
                     * DATE
+                    * DESCRIPTION
                     * CATEGORY
                     * PRICE
+                    * NOTES
                 ''')
 
 # Text input for the user to enter the Google Sheet sharing link
@@ -33,7 +35,7 @@ if user_input:
 
     try:
         # Read data from Google Sheets
-        google_data = conn.read(spreadsheet=user_input, usecols=[0, 1, 2, 3, 4, 5])
+        google_data = conn.read(spreadsheet=user_input, usecols=[0, 1, 2, 3, 4])
         pandas_data = pd.DataFrame(google_data)
 
         # Convert 'DATE' column to datetime objects
