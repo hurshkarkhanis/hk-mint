@@ -8,15 +8,17 @@ from datetime import datetime
 
 load_dotenv(find_dotenv())
 
-st.title("🔐 Hursh Karkhanis")
+st.title("🔐 My Personal Finances")
+
+
 
 def main():
-    st.title("Login Page")
+    
 
     secret_key = os.getenv('SECRET_KEY')
 
     # Get username and password from user input
-    user_secret_key = st.text_input("Enter Secret Key")
+    user_secret_key = st.text_input("Enter Secret Key", type="password")
 
 
     # Check if username and password are correct
