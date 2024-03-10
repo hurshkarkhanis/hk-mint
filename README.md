@@ -1,17 +1,10 @@
 # 📗 Welcome to PocketBook AI
 
-**👨🏻‍💻 I built Pocketbook AI to give myself a personal finance tool** after [Mint shut down](https://www.cnbc.com/select/mint-app-shutting-down-what-users-should-do/) at the end of 2023. 
+**👨🏻‍💻 I built Pocketbook AI to give myself a personal finance tool** after[Mint shut down](https://www.cnbc.com/select/mint-app-shutting-down-what-users-should-do/)at the end of 2023. 
 
 🔄 **This tool uses** data visualization and AI to streamline analysis
 
-
-**👈 Check out the pages on the side bar**, or read about them below
-        
-**📊 Analyze** allows me to connect to, filter, visualize, and chat wtih my spending data.
-
-**💬 Upload** allows me to upload any CSV file and use natural language to query it
-
-[**👀 PocketBook in action!**](https://www.youtube.com/watch?v=hBUYqjVoNx8 )
+[**👀 See PocketBook in action**](https://hurshkarkhanis.com/mint)
 
 <details>
   <summary>🧰 Technical Specifics for Developers</summary>

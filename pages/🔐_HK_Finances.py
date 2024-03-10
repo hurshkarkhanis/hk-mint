@@ -9,7 +9,9 @@ from datetime import datetime
 load_dotenv(find_dotenv())
 
 st.title("🔐 My Personal Finances")
+st.caption("🔑 Password protected!")
 
+st.divider()
 
 
 def main():
@@ -27,12 +29,13 @@ def main():
         show_main_screen()
     elif user_secret_key != "":
         st.error("Incorrect username or password")
+    
+    
+
 
 def show_main_screen():
-    # Setting up the Streamlit app title
-    st.title("📊 Analyze")
 
-    st.header("⚙️ Filter data and vizualize spending totals")
+    st.subheader("⚙️ Filter data and vizualize spending totals")
 
     # Google Sheets URL
     url = "https://docs.google.com/spreadsheets/d/1n-hcvcfR4yMxqcolyOq2rBauGH1nFtCkWYYZgUgyEDs/edit?usp=sharing"
@@ -63,6 +66,9 @@ def show_main_screen():
     # Formatting date inputs
     formatted_start = start_date.strftime("%B %d, %Y")
     formatted_end = end_date.strftime("%B %d, %Y")
+
+    st.divider()
+
 
     # Displaying date range and selected categories
     st.subheader("🗓 " + formatted_start + " to " + formatted_end)
@@ -114,8 +120,11 @@ def show_main_screen():
 
     #####################################################################################
 
+    st.divider()
+
+
     # AI Interaction Section
-    st.header("📝 Query financial data in plain English")
+    st.subheader("📝 Query financial data in plain English")
     st.subheader("😎 No need for SQL or Python data skills")
 
 

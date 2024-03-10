@@ -4,10 +4,12 @@ from datetime import datetime
 
 st.title("⬆️ Upload Your Data")
 
+st.divider()
+
 st.subheader("😎 Upload your financial data for AI powered insights")
 
 
-with st.expander("⚠️ Guidelines for File Upload"):
+with st.expander("⚠️ Guidelines for Upload"):
         st.markdown('''
                     1. File MUST be CSV format
                     2. File MUST contain these columns at least (column names case sensitive)
@@ -19,11 +21,17 @@ with st.expander("⚠️ Guidelines for File Upload"):
 
 uploaded_file = st.file_uploader("⬆️ Upload Here", type=['csv'])
 
+st.divider()
+
+
 if uploaded_file is not None:
 
     try:
 
         pandas_data = pd.read_csv(uploaded_file)
+
+        st.subheader("⚙️ Filter data and vizualize spending totals")
+
 
         with st.expander("View Uploaded Data"):
             st.write(pandas_data)
@@ -52,6 +60,9 @@ if uploaded_file is not None:
         # Formatting date inputs
         formatted_start = start_date.strftime("%B %d, %Y")
         formatted_end = end_date.strftime("%B %d, %Y")
+
+        st.divider()
+
 
         # Displaying date range and selected categories
         st.subheader("🗓 " + formatted_start + " to " + formatted_end)
@@ -103,8 +114,10 @@ if uploaded_file is not None:
 
         #####################################################################################
 
+        st.divider()
+
         # AI Interaction Section
-        st.header("📝 Query financial data in plain English")
+        st.subheader("📝 Query financial data in plain English")
         st.subheader("😎 No need for SQL or Python data skills")
 
 

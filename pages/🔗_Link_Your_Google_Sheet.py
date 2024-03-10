@@ -6,7 +6,10 @@ from datetime import datetime
 # Setting up the Streamlit app title
 st.title("🔗 Link Your Google Sheet")
 
-st.header("⚙️ Filter data and visualize spending totals")
+st.divider()
+
+st.subheader("😎 Link your financial data for AI powered insights")
+
 
 with st.expander("⚠️ Guidelines for Google Sheet Link"):
         st.markdown('''
@@ -18,6 +21,7 @@ with st.expander("⚠️ Guidelines for Google Sheet Link"):
                     ''')
 
 user_input = st.text_input("Enter the Google Sheet sharing link:")
+
 
 # Google Sheets URL
 url = user_input
@@ -33,6 +37,8 @@ if url:  # Check if user input is not empty
 
         # Convert 'DATE' column to datetime objects
         pandas_data['DATE'] = pd.to_datetime(pandas_data['DATE']).dt.date
+
+        st.subheader("⚙️ Filter data and vizualize spending totals")
 
         # Creating two columns for date inputs
         col1, col2 = st.columns(2)
@@ -50,6 +56,8 @@ if url:  # Check if user input is not empty
         # Formatting date inputs
         formatted_start = start_date.strftime("%B %d, %Y")
         formatted_end = end_date.strftime("%B %d, %Y")
+
+        st.divider()
 
         # Displaying date range and selected categories
         st.subheader("🗓 " + formatted_start + " to " + formatted_end)
@@ -100,9 +108,11 @@ if url:  # Check if user input is not empty
         st.bar_chart(category_spend)
 
         #####################################################################################
+        st.divider()
+        
 
         # AI Interaction Section
-        st.header("📝 Query financial data in plain English")
+        st.subheader("📝 Query financial data in plain English")
         st.subheader("😎 No need for SQL or Python data skills")
 
         # Importing necessary libraries
@@ -147,4 +157,4 @@ if url:  # Check if user input is not empty
     except Exception as e:
         st.error(f"An error occurred: {e}")
 else:
-    st.info("Please enter the Google Sheet sharing link.")
+    print("hello")
