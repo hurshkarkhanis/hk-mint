@@ -1,6 +1,6 @@
 # 📗 Welcome to PocketBook AI
 
-**👨🏻‍💻 I built Pocketbook AI to give myself a personal finance tool** after[Mint shut down](https://www.cnbc.com/select/mint-app-shutting-down-what-users-should-do/)at the end of 2023. 
+**👨🏻‍💻 I built Pocketbook AI to give myself a personal finance tool** after [Mint shut down](https://www.cnbc.com/select/mint-app-shutting-down-what-users-should-do/) at the end of 2023. 
 
 🔄 **This tool uses** data visualization and AI to streamline analysis
 
