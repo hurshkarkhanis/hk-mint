@@ -1,3 +1,4 @@
+# Import necessary libraries
 import streamlit as st
 import pandas as pd
 from streamlit_gsheets import GSheetsConnection
@@ -6,39 +7,40 @@ from datetime import datetime
 # Setting up the Streamlit app title
 st.title("🔗 Link Your Google Sheet")
 
+# Creating a divider for visual separation
 st.divider()
 
-st.subheader("😎 Link your financial data for AI powered insights")
+# Subheader for instructing users
+st.subheader("😎 Link your financial data for AI-powered insights")
 
-
+# Expander to provide guidelines for Google Sheet link
 with st.expander("⚠️ Guidelines for Google Sheet Link"):
-        st.markdown('''
-                    1. Must be sharing link (top right of Google Sheet)
-                    2. File MUST contain these columns at least (column names case sensitive)
-                        * DATE
-                        * CATEGORY
-                        * PRICE
-                    ''')
+    st.markdown('''
+                1. Must be sharing link (top right of Google Sheet)
+                2. File MUST contain these columns at least (column names case sensitive)
+                    * DATE
+                    * CATEGORY
+                    * PRICE
+                ''')
 
+# Text input for the user to enter the Google Sheet sharing link
 user_input = st.text_input("Enter the Google Sheet sharing link:")
 
-
-# Google Sheets URL
-url = user_input
-
-if url:  # Check if user input is not empty
+# Check if user input is not empty
+if user_input:  
     # Establishing connection to Google Sheets
     conn = st.connection("gsheets", type=GSheetsConnection)
 
     try:
         # Read data from Google Sheets
-        google_data = conn.read(spreadsheet=url, usecols=[0, 1, 2, 3, 4, 5])
+        google_data = conn.read(spreadsheet=user_input, usecols=[0, 1, 2, 3, 4, 5])
         pandas_data = pd.DataFrame(google_data)
 
         # Convert 'DATE' column to datetime objects
         pandas_data['DATE'] = pd.to_datetime(pandas_data['DATE']).dt.date
 
-        st.subheader("⚙️ Filter data and vizualize spending totals")
+        # Subheader for filtering data and visualizing spending totals
+        st.subheader("⚙️ Filter data and visualize spending totals")
 
         # Creating two columns for date inputs
         col1, col2 = st.columns(2)
@@ -107,15 +109,14 @@ if url:  # Check if user input is not empty
         category_spend = filtered_df.groupby('CATEGORY')['PRICE'].sum()
         st.bar_chart(category_spend)
 
-        #####################################################################################
+        # Divider for separating sections
         st.divider()
-        
 
         # AI Interaction Section
         st.subheader("📝 Query financial data in plain English")
         st.subheader("😎 No need for SQL or Python data skills")
 
-        # Importing necessary libraries
+        # Importing necessary libraries for interacting with Langchain
         import os
         from dotenv import load_dotenv, find_dotenv
 
@@ -155,6 +156,9 @@ if url:  # Check if user input is not empty
             st.write(pandas_data)
 
     except Exception as e:
+        # Error message in case of any exception during processing
         st.error(f"An error occurred: {e}")
+
 else:
-    print("hello")
+    # Placeholder message if the user has not entered the Google Sheet sharing link yet
+    print("Please enter the Google Sheet sharing link.")

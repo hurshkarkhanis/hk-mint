@@ -23,3 +23,5 @@
   
   I used [Langchain](https://www.langchain.com/), an LLM framework for chat functionality
 </details>
+
+**[⏮ Back to hurshkarkhanis.com](https://www.hurshkarkhanis.com/)**

@@ -1,56 +1,58 @@
+# Import necessary libraries
 import pandas as pd
 import streamlit as st
 from datetime import datetime
+import os
+from dotenv import load_dotenv, find_dotenv
 
+
+# Set title and instructions for data upload
 st.title("⬆️ Upload Your Data")
-
 st.divider()
+st.subheader("😎 Upload your financial data for AI-powered insights")
 
-st.subheader("😎 Upload your financial data for AI powered insights")
-
-
+# Provide guidelines for data upload
 with st.expander("⚠️ Guidelines for Upload"):
-        st.markdown('''
-                    1. File MUST be CSV format
-                    2. File MUST contain these columns at least (column names case sensitive)
-                        * DATE
-                        * CATEGORY
-                        * PRICE
-                    ''')
-        
+    st.markdown('''
+                1. File MUST be CSV or XLSX format
+                2. File MUST contain these columns at least (column names case-sensitive)
+                    * DATE
+                    * CATEGORY
+                    * PRICE
+                ''')
 
-uploaded_file = st.file_uploader("⬆️ Upload Here", type=['csv'])
-
+# Allow user to upload file
+uploaded_file = st.file_uploader("⬆️ Upload Here", type=['csv', 'xlsx'])
 st.divider()
 
-
+# Process uploaded file
 if uploaded_file is not None:
-
     try:
+        # Read the uploaded file based on its extension
+        file_extension = uploaded_file.name.split('.')[-1]
+        if file_extension == 'csv':
+            pandas_data = pd.read_csv(uploaded_file)
+        elif file_extension == 'xlsx':
+            pandas_data = pd.read_excel(uploaded_file)
+        else:
+            st.write("Unsupported file format. Please upload a CSV or XLSX file.")
 
-        pandas_data = pd.read_csv(uploaded_file)
-
-        st.subheader("⚙️ Filter data and vizualize spending totals")
-
-
+        # Display uploaded data
+        st.subheader("⚙️ Filter data and visualize spending totals")
         with st.expander("View Uploaded Data"):
             st.write(pandas_data)
 
         # Convert 'DATE' column to datetime objects
         pandas_data['DATE'] = pd.to_datetime(pandas_data['DATE']).dt.date
 
-        # Assuming you have loaded your DataFrame into df
         # Compute min and max dates
         min_date = pandas_data['DATE'].min()
         max_date = pandas_data['DATE'].max()
 
-    # Set up your Streamlit layout
+        # Set up date inputs
         col1, col2 = st.columns(2)
-
-        # Date inputs with initial values set to min and max dates
         with col1:
             start_date = st.date_input("Start date", min_date)
-
         with col2:
             end_date = st.date_input("End date", max_date)
 
@@ -63,8 +65,7 @@ if uploaded_file is not None:
 
         st.divider()
 
-
-        # Displaying date range and selected categories
+        # Display date range and selected categories
         st.subheader("🗓 " + formatted_start + " to " + formatted_end)
         if not categories:
             st.subheader("🗂 All Categories")
@@ -72,34 +73,34 @@ if uploaded_file is not None:
             subheader_text = " + ".join(categories)
             st.subheader("🗂 Categories: " + subheader_text)
 
-        # Filtering data based on date range and selected categories
+        # Filter data based on date range and selected categories
         start_datetime = datetime.combine(start_date, datetime.min.time())
         end_datetime = datetime.combine(end_date, datetime.max.time())
 
         if start_datetime <= end_datetime:
             if not categories:
                 filtered_df = pandas_data[(pandas_data['DATE'] >= start_datetime.date()) & 
-                                    (pandas_data['DATE'] <= end_datetime.date())]
+                                          (pandas_data['DATE'] <= end_datetime.date())]
             else:
                 filtered_df = pandas_data[(pandas_data['DATE'] >= start_datetime.date()) & 
-                                        (pandas_data['DATE'] <= end_datetime.date()) & 
-                                        (pandas_data['CATEGORY'].isin(categories))]
+                                          (pandas_data['DATE'] <= end_datetime.date()) & 
+                                          (pandas_data['CATEGORY'].isin(categories))]
         else:
             st.error("End date must be after start date.")
 
-        # Calculating spending metrics
+        # Calculate spending metrics
         total_spend = sum(filtered_df['PRICE'])
         median_spend = filtered_df['PRICE'].median()
         min_spend = min(filtered_df['PRICE'])
         max_spend = max(filtered_df['PRICE'])
 
-        # Formatting spending metrics as dollars
+        # Format spending metrics as dollars
         total_spend_formatted = "${:,.2f}".format(total_spend)
         median_spend_formatted = "${:,.2f}".format(median_spend)
         min_spend_formatted = "${:,.2f}".format(min_spend)
         max_spend_formatted = "${:,.2f}".format(max_spend)
 
-        # Displaying spending metrics
+        # Display spending metrics
         column_names = ["Min Spend", "Median Spend", "Max Spend", "Total Spend"]
         formatted_values = [min_spend_formatted, median_spend_formatted, max_spend_formatted, total_spend_formatted]
 
@@ -107,25 +108,19 @@ if uploaded_file is not None:
             with col:
                 st.metric(column_names[i], value)
 
-        # Displaying spending distribution by category using a bar chart
+        # Display spending distribution by category using a bar chart
         st.subheader("Spending Distribution")
         category_spend = filtered_df.groupby('CATEGORY')['PRICE'].sum()
         st.bar_chart(category_spend)
 
         #####################################################################################
 
-        st.divider()
-
         # AI Interaction Section
+        st.divider()
         st.subheader("📝 Query financial data in plain English")
         st.subheader("😎 No need for SQL or Python data skills")
 
-
-        # Importing necessary libraries
-        import os
-        from dotenv import load_dotenv, find_dotenv
-
-        # Loading API key from environment variables
+        # Load OpenAI API key from environment variables
         load_dotenv(find_dotenv())
         my_key = os.getenv('OPEN_AI_API_KEY')
 
@@ -133,11 +128,10 @@ if uploaded_file is not None:
         from langchain_openai import ChatOpenAI
         from langchain_experimental.agents import create_pandas_dataframe_agent
 
-        # Creating Langchain agent with verbose output
+        # Create Langchain agent
         chat = ChatOpenAI(model_name='gpt-3.5-turbo', 
                         temperature=0, 
-                        openai_api_key=my_key
-                        )
+                        openai_api_key=my_key)
         agent = create_pandas_dataframe_agent(chat, pandas_data, verbose=True)
 
         # Function to interact with Langchain agent
@@ -170,6 +164,5 @@ if uploaded_file is not None:
     except ValueError as ve:
         st.error("An error occurred: Please make sure the uploaded file is not empty or in the correct CSV format.")
 
-
-
-
+    except ValueError as ve:
+        st.error("An error occurred: Please make sure the uploaded file is not empty or in the correct CSV or XLSX format.")

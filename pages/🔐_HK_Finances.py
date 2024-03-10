@@ -1,3 +1,4 @@
+# Import necessary libraries
 import streamlit as st
 import os
 from dotenv import load_dotenv, find_dotenv
@@ -6,41 +7,38 @@ from streamlit_gsheets import GSheetsConnection
 from datetime import datetime
 
 
+# Load environment variables
 load_dotenv(find_dotenv())
 
+# Set up Streamlit app title and caption
 st.title("🔐 My Personal Finances")
 st.caption("🔑 Password protected!")
-
 st.divider()
 
-
+# Define main function
 def main():
-    
-
+    # Retrieve secret key from environment variables
     secret_key = os.getenv('SECRET_KEY')
 
-    # Get username and password from user input
+    # Get user input for secret key
     user_secret_key = st.text_input("Enter Secret Key", type="password")
 
-
-    # Check if username and password are correct
+    # Check if secret key is correct
     if user_secret_key == secret_key:
         st.success("Login successful!")
         show_main_screen()
     elif user_secret_key != "":
-        st.error("Incorrect username or password")
-    
-    
+        st.error("Incorrect secret key")
 
-
+# Define function to display main screen after successful login
 def show_main_screen():
-
-    st.subheader("⚙️ Filter data and vizualize spending totals")
+    # Display section for filtering data and visualizing spending totals
+    st.subheader("⚙️ Filter data and visualize spending totals")
 
     # Google Sheets URL
     url = "https://docs.google.com/spreadsheets/d/1n-hcvcfR4yMxqcolyOq2rBauGH1nFtCkWYYZgUgyEDs/edit?usp=sharing"
 
-    # Establishing connection to Google Sheets
+    # Establish connection to Google Sheets
     conn = st.connection("gsheets", type=GSheetsConnection)
 
     # Read data from Google Sheets
@@ -50,7 +48,7 @@ def show_main_screen():
     # Convert 'DATE' column to datetime objects
     pandas_data['DATE'] = pd.to_datetime(pandas_data['DATE']).dt.date
 
-    # Creating two columns for date inputs
+    # Create two columns for date inputs
     col1, col2 = st.columns(2)
 
     # Add date inputs to the columns
@@ -69,8 +67,7 @@ def show_main_screen():
 
     st.divider()
 
-
-    # Displaying date range and selected categories
+    # Display date range and selected categories
     st.subheader("🗓 " + formatted_start + " to " + formatted_end)
     if not categories:
         st.subheader("🗂 All Categories")
@@ -78,7 +75,7 @@ def show_main_screen():
         subheader_text = " + ".join(categories)
         st.subheader("🗂 Categories: " + subheader_text)
 
-    # Filtering data based on date range and selected categories
+    # Filter data based on date range and selected categories
     start_datetime = datetime.combine(start_date, datetime.min.time())
     end_datetime = datetime.combine(end_date, datetime.max.time())
 
@@ -118,33 +115,22 @@ def show_main_screen():
     category_spend = filtered_df.groupby('CATEGORY')['PRICE'].sum()
     st.bar_chart(category_spend)
 
-    #####################################################################################
-
-    st.divider()
-
-
     # AI Interaction Section
+    st.divider()
     st.subheader("📝 Query financial data in plain English")
     st.subheader("😎 No need for SQL or Python data skills")
 
-
-    # Importing necessary libraries
-    import os
-    from dotenv import load_dotenv, find_dotenv
-
-    # Loading API key from environment variables
-    load_dotenv(find_dotenv())
+    # Load OpenAI API key from environment variables
     my_key = os.getenv('OPEN_AI_API_KEY')
 
     # Importing Langchain-related modules
     from langchain_openai import ChatOpenAI
     from langchain_experimental.agents import create_pandas_dataframe_agent
 
-    # Creating Langchain agent with verbose output
+    # Create Langchain agent with verbose output
     chat = ChatOpenAI(model_name='gpt-3.5-turbo', 
                     temperature=0, 
-                    openai_api_key=my_key
-                    )
+                    openai_api_key=my_key)
     agent = create_pandas_dataframe_agent(chat, pandas_data, verbose=True)
 
     # Function to interact with Langchain agent
@@ -178,13 +164,6 @@ def show_main_screen():
     with st.expander("See Raw Data"):
         st.write(pandas_data)
 
-
+# Run the main function if the script is executed directly
 if __name__ == "__main__":
     main()
-
-
-
-
-
-
-
