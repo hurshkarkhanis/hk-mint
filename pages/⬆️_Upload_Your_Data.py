@@ -15,7 +15,7 @@ st.subheader("😎 Upload your financial data for AI-powered insights")
 with st.expander("⚠️ Guidelines for Upload"):
     st.markdown('''
                 1. File MUST be CSV or XLSX format
-                2. File MUST contain these columns (column names case sensitive)
+                2. File MUST contain these columns **(column names case sensitive)**
                     * DATE
                     * CATEGORY
                     * PRICE

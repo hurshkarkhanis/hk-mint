@@ -17,7 +17,7 @@ st.subheader("😎 Link your financial data for AI-powered insights")
 with st.expander("⚠️ Guidelines for Google Sheet Link"):
     st.markdown('''
                 1. Must be sharing link (top right of Google Sheet)
-                2. File MUST contain exactly these columns (column names case sensitive)
+                2. File MUST contain exactly these columns **(column names case sensitive)**
                     * DATE
                     * DESCRIPTION
                     * CATEGORY
