@@ -28,15 +28,19 @@
 **📸 Screenshots Below:**
 
 ![User can upload their own data for analysis](./screenshots/file_upload.png)
+
 User can upload their own data for analysis
 
 ![Users can use interactive filters, metrics and visualizations](./screenshots/filters_and_viz.png)
+
 Users can use interactive filters, metrics and visualizations
 
 ![User can "talk to" data ; querying it in plain English!](./screenshots/ai_component.png)
+
 User can "talk to" data ; querying it in plain English!
 
 ![User can connect to Google Sheet data too](./screenshots/google_sheet.png)
+
 User can connect to Google Sheet data too
 
 
