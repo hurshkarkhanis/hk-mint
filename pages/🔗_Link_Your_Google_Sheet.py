@@ -14,16 +14,9 @@ st.divider()
 st.subheader("😎 Link your financial data for AI-powered insights")
 
 # Expander to provide guidelines for Google Sheet link
-with st.expander("⚠️ Guidelines for Google Sheet Link"):
-    st.markdown('''
-                1. Must be sharing link (top right of Google Sheet)
-                2. File MUST contain exactly these columns **(column names case sensitive)**
-                    * DATE
-                    * DESCRIPTION
-                    * CATEGORY
-                    * PRICE
-                    * NOTES
-                ''')
+with st.expander("👉 Google Sheet Example"):
+    st.image("./screenshots/sheet_example.png")
+    st.write("**File must contain these columns, case sensitive**")
 
 # Text input for the user to enter the Google Sheet sharing link
 user_input = st.text_input("Enter the Google Sheet sharing link:")

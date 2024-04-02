@@ -12,14 +12,10 @@ st.divider()
 st.subheader("😎 Upload your financial data for AI-powered insights")
 
 # Provide guidelines for data upload
-with st.expander("⚠️ Guidelines for Upload"):
-    st.markdown('''
-                1. File MUST be CSV or XLSX format
-                2. File MUST contain these columns **(column names case sensitive)**
-                    * DATE
-                    * CATEGORY
-                    * PRICE
-                ''')
+with st.expander("👉 File Upload Example"):
+    st.image("./screenshots/file_example.png")
+    st.write("**File must contain these columns, case sensitive**")
+
 
 # Allow user to upload file
 uploaded_file = st.file_uploader("⬆️ Upload Here", type=['csv', 'xlsx'])
