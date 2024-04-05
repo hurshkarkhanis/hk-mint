@@ -19,7 +19,7 @@ with st.expander("👉 Google Sheet Example"):
     st.write("**File must contain these columns, case sensitive**")
 
 # Text input for the user to enter the Google Sheet sharing link
-user_input = st.text_input("Enter the Google Sheet sharing link:")
+user_input = st.text_input("Enter the Google Sheet sharing link (top right of Sheets menu):")
 
 # Check if user input is not empty
 if user_input:  
@@ -30,6 +30,9 @@ if user_input:
         # Read data from Google Sheets
         google_data = conn.read(spreadsheet=user_input, usecols=[0, 1, 2, 3, 4])
         pandas_data = pd.DataFrame(google_data)
+
+        if st.button("🔁 Refresh Data"):
+            st.cache_data.clear()
 
         # Convert 'DATE' column to datetime objects
         pandas_data['DATE'] = pd.to_datetime(pandas_data['DATE']).dt.date
